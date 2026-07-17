@@ -4,11 +4,7 @@
 
 @section('content')
 <div class="container">
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+
     <h1>商品一覧</h1>
 
     <form action="{{ route('products.index') }}" method="GET" class="my-3">
@@ -31,7 +27,7 @@
         </div>
     </form>
 
-    <table border="1">
+    <table class="table table align-middle">
         <thead>
             <tr>
                 <th>商品番号</th>
@@ -58,7 +54,7 @@
                 </td>
                 <td>{{ number_format($product->price) }}</td>
                 <td>
-                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">詳細</a>
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-success">詳細</a>
                 </td>
             </tr>
             @empty

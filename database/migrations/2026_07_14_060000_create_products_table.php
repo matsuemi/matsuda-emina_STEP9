@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->text('description');
-            $table->string('img_path')->nullable();
+            $table->string('img_path');
             $table->timestamps();
         });
     }

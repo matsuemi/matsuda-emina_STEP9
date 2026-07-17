@@ -41,8 +41,16 @@
         </div>
 
         {{-- ボタン --}}
-            <a href="{{ route('products.index') }}" class="btn btn-secondary">戻る</a>
-            <a href="{{ route('products.index') }}" class="btn btn btn-primary">登録</a>
+        <div class="d-flex justify-content-left gap-3 mt-4">
+
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">
+            戻る
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            登録
+        </button>
+        </div>
     </form>
 
 </div>
