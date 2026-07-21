@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Sale;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-    $products = Product::where('user_id', '!=', auth()->id())->get();
+    $query = Product::where('user_id', '!=', auth()->id());
+
+    if ($request->filled('keyword')) {
+        $query->where('product_name', 'like', '%' . $request->keyword . '%');
+    }
+
+    $products = $query->get();
 
     return view('products.index', compact('products'));
     }
@@ -56,7 +63,7 @@ class ProductController extends Controller
         'img_path' => $imagePath,
     ]);
 
-    return redirect()->route('products.index')
+    return redirect()->route('mypage')
         ->with('success', '商品を登録しました。');
     }
 
@@ -108,7 +115,41 @@ class ProductController extends Controller
     {
     $products = Product::where('user_id', auth()->id())->get();
 
-    return view('products.mypage', compact('products'));
+    $sales = Sale::with('product')->where('user_id', auth()->id())->get();
+
+    return view('products.mypage', compact('products', 'sales'));
     }
+
+    public function purchase($id)
+    {
+    $product = Product::with('company')->findOrFail($id);
+
+    return view('products.purchase', compact('product'));
+    }
+
+    public function purchaseStore(Request $request, $id)
+{
+    $request->validate([
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $product = Product::findOrFail($id);
+
+    if ($request->quantity > $product->stock) {
+        return back()->with('error', '在庫が不足しています。');
+    }
+
+    Sale::create([
+        'user_id' => auth()->id(),
+        'product_id' => $product->id,
+        'quantity' => $request->quantity,
+    ]);
+
+    $product->stock -= $request->quantity;
+    $product->save();
+
+    return redirect()->route('products.index')
+    ->with('success', '商品を購入しました。');
+}
 
 }

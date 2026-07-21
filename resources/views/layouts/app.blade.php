@@ -19,13 +19,17 @@
 
             <h3 class="mb-0">
                 <a href="{{ route('products.index') }}" class="text-decoration-none text-dark">
-                    CytechEC
+                    Cytech EC
                 </a>
             </h3>
 
             <div class="d-flex justify-content-end align-items-center gap-3">
                 <a href="{{ route('products.index') }}" class="text-decoration-none">
                     Home
+                </a>
+
+                <a href="{{ route('mypage') }}" class="text-decoration-none">
+                    マイページ
                 </a>
 
                 @auth
@@ -55,13 +59,19 @@
 
     @yield('content')
 
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
 </main>
 
 <footer class="bg-primary-subtle py-4">
 
     <div class="container text-center">
-
-        <a href="#" class="btn btn-warning mb-3">
+        
+        <a href="{{ route('contact') }}" class="btn btn-primary mb-3">
             お問い合わせ
         </a>
 

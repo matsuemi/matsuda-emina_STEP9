@@ -41,20 +41,21 @@
         @csrf
 
         <button type="submit" class="btn btn-link p-0 border-0 fs-4">
-
-        @if($product->likes->contains('user_id', auth()->id()))
-            <i class="fa-solid fa-heart text-danger"></i>
+            @if($product->likes->contains('user_id', auth()->id()))
+                <i class="fa-solid fa-heart text-danger"></i>
             @else
-            <i class="fa-solid fa-heart text-secondary"></i>
+                <i class="fa-solid fa-heart text-secondary"></i>
             @endif
+        </button>
     </form>
+</div>
 
 <div class="d-flex gap-3">
-    <button class="btn btn-primary">
+    <a href="{{ route('products.purchase', $product->id) }}" class="btn btn-success text-decoration-none">
         カートに追加する
-    </button>
+    </a>
 
-    <a href="{{ route('products.index') }}" class="btn btn-secondary">
+    <a href="{{ route('products.index') }}" class="btn btn-secondary text-decoration-none">
         戻る
     </a>
 </div>

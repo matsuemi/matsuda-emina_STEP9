@@ -14,28 +14,37 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+    $user = auth()->user();
+
+    return view('account.edit', compact('user'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+    $request->validate([
+        'user_name' => 'required|max:255',
+        'email' => 'required|email',
+        'name' => 'required|max:255',
+        'name_kana' => 'required|max:255',
+    ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+    $user = auth()->user();
 
-        $request->user()->save();
+    $user->update([
+        'user_name' => $request->user_name,
+        'email' => $request->email,
+        'name' => $request->name,
+        'name_kana' => $request->name_kana,
+    ]);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+    return redirect()->route('mypage')
+        ->with('success', 'アカウント情報を更新しました。');
+}
 
     /**
      * Delete the user's account.
@@ -57,4 +66,6 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    
 }

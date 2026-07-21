@@ -8,7 +8,7 @@
 
 {{-- アカウント情報 --}}
     <div class="mb-3">
-        <a href="{{ route('profile.edit') }}" class="btn btn-primary">
+        <a href="{{ route('account.edit') }}" class="btn btn-primary">
             アカウント編集
         </a>
     </div>
@@ -94,11 +94,20 @@
     </thead>
 
     <tbody>
+    @forelse($sales as $sale)
+        <tr>
+            <td>{{ $sale->product->product_name }}</td>
+            <td>{{ $sale->product->description }}</td>
+            <td>{{ number_format($sale->product->price) }}</td>
+            <td>{{ $sale->quantity }}</td>
+        </tr>
+    @empty
         <tr>
             <td colspan="4" class="text-center">
                 購入した商品はありません。
             </td>
         </tr>
+    @endforelse
     </tbody>
 </table>
 

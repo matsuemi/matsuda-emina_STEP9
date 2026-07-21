@@ -32,4 +32,9 @@ class Product extends Model
     {
     return $this->hasMany(Like::class);
     }
+
+    public function sales(): HasMany
+    {
+    return $this->hasMany(Sale::class);
+    }
 }
