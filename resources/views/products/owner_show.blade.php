@@ -47,7 +47,7 @@
             </button>
         </form>
 
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">
+        <a href="{{ route('mypage') }}" class="btn btn-secondary">
             戻る
         </a>
     </div>

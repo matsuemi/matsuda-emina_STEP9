@@ -43,7 +43,7 @@
         {{-- ボタン --}}
         <div class="d-flex justify-content-left gap-3 mt-4">
 
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">
+        <a href="{{ route('mypage') }}" class="btn btn-secondary">
             戻る
         </a>
 

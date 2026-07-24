@@ -10,7 +10,7 @@
     <form action="{{ route('products.index') }}" method="GET" class="my-3">
         <div class="row align-items-center">
             <div class="col-4">
-                <input type="text" name="keyword" class="form-control" placeholder="商品名を入力" value="{{ request('keyord') }}">
+                <input type="text" name="keyword" class="form-control" placeholder="商品名を入力" value="{{ request('keyword') }}">
             </div>
             <div class="col-md-2">
                 <input type="number" name="min_price" class="form-control" placeholder="最低価格" value="{{ request('min_price') }}">

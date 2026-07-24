@@ -59,7 +59,7 @@
         </div>
 
         <div class="d-flex justify-content-left gap-3">
-            <a href="{{ route('products.show', $product->id) }}" class="btn btn-secondary">
+            <a href="{{ route('products.owner.show', $product->id) }}" class="btn btn-secondary">
                 戻る
             </a>
 

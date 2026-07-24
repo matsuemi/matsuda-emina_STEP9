@@ -16,6 +16,14 @@ class ProductController extends Controller
         $query->where('product_name', 'like', '%' . $request->keyword . '%');
     }
 
+    if ($request->filled('min_price')) {
+        $query->where('price', '>=', $request->min_price);
+    }
+
+    if ($request->filled('max_price')) {
+        $query->where('price', '<=', $request->max_price);
+    }
+
     $products = $query->get();
 
     return view('products.index', compact('products'));
@@ -42,7 +50,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-    // バリデーション
+    
     $request->validate([
         'product_name' => 'required|max:255',
         'price' => 'required|integer',
